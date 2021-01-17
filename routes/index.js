@@ -53,6 +53,24 @@ router.get('/getOppendesigner', async (ctx,next)=>{
   })
 })
 
+router.get('/changeMacAddress', async (ctx,next)=>{
+  const query = ctx.query;
+  const sql = `UPDATE user SET mac_add='${query.mac_add}' WHERE user_id = ${query.userId}`;
+  await sqlServer.query(sql).then((value)=>{
+    ctx.body = {
+      code: 2000,
+      message: 'success',
+      data:null
+    };
+  }).catch((err)=>{
+    ctx.body = {
+      code: 5001,
+      message: "server error",
+      data:err
+    };
+  })
+})
+
 router.get('/getPaymentInfo', async (ctx,next)=>{
   const query = ctx.query;
   const sql = `SELECT * FROM payment_info`;
