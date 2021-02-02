@@ -35,6 +35,24 @@ router.get('/getUserInfoById', async (ctx,next)=>{
   })
 })
 
+router.get('/getUserInfoByEmail', async (ctx,next)=>{
+  const query = ctx.query;
+  const sql = `SELECT * FROM user WHERE email='${query.email}'`
+  await sqlServer.query(sql).then((value)=>{
+    ctx.body = {
+      code: 2000,
+      message: 'success',
+      data:value.sqlResult[0]
+    };
+  }).catch((err)=>{
+    ctx.body = {
+      code: 5001,
+      message: "server error",
+      data:err
+    };
+  })
+})
+
 router.get('/getOppendesigner', async (ctx,next)=>{
   const query = ctx.query;
   const sql = `SELECT * FROM oppendesigner`;
@@ -91,7 +109,11 @@ router.get('/getPaymentInfo', async (ctx,next)=>{
 
 router.get('/getServerNow', async (ctx,next)=>{
   const now  = new Date();
-  ctx.body = now.toLocaleString();
+  ctx.body = {
+    code: 2000,
+    message: 'success',
+    data: now.toLocaleString()
+  };
 })
 
 router.post('/resetPassword', async (ctx,next)=>{
