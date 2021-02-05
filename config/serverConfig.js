@@ -6,12 +6,19 @@ const mySql = require('mysql');
 //   password:'Yi8320592',
 //   database : 'test_01'
 // });
+// const sqlServer = mySql.createPool({
+//   host:'rm-bp10s9gmlydy06443qo.mysql.rds.aliyuncs.com',
+//   port:3306,
+//   user:'heal',
+//   password:'Yi8320592',
+//   database : 'test_01'
+// });
 const sqlServer = mySql.createPool({
-  host:'rm-bp10s9gmlydy06443qo.mysql.rds.aliyuncs.com',
+  host:'rm-bp1t28z6751kk67y4vo.mysql.rds.aliyuncs.com',
   port:3306,
-  user:'heal',
-  password:'Yi8320592',
-  database : 'test_01'
+  user:'zhangliuliu',
+  password:'Abcd1234',
+  database : 'oppendesigner'
 });
 // sqlServer.connect((sqlErr)=>{
 //   console.error("SqlErr",sqlErr);
