@@ -31,7 +31,11 @@ router.get('/queryBuy',async (ctx, next)=>{
         ctx.body = {
           code: 2000,
           message: 'success',
-          data:null
+          data:{
+            account_level:"年会员",
+            account_status:"正常",
+            account_valid_date:query.account_valid_date
+          }
         };
       }).catch((err)=>{
         ctx.body = {
