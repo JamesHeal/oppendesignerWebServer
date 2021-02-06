@@ -71,6 +71,62 @@ router.get('/getOppendesigner', async (ctx,next)=>{
   })
 })
 
+router.post('/uploadOppendesigner', async (ctx,next)=>{
+  let postData= JSON.parse(ctx.request.body);
+  const sql = `UPDATE oppendesigner SET opp_file_add='${postData.opp_file_add}', dynamo_edition='${postData.dynamo_edition}', opp_edition='${postData.opp_edition}' WHERE id = ${postData.id}`;
+  await sqlServer.query(sql).then((value)=>{
+    ctx.body = {
+      code: 2000,
+      message: 'success',
+      data:null
+    };
+  }).catch((err)=>{
+    ctx.body = {
+      code: 5001,
+      message: "server error",
+      data:err
+    };
+  })
+})
+
+router.get('/deleteOppendesigner', async (ctx,next)=>{
+  const query = ctx.query;
+  const sql = `DELETE FROM oppendesigner where id=${query.id}`
+  await sqlServer.query(sql).then((value)=>{
+    ctx.body = {
+      code: 2000,
+      message: 'success',
+      data:null
+    };
+  }).catch((err)=>{
+    ctx.body = {
+      code: 5001,
+      message: "server error",
+      data:err
+    };
+  })
+})
+
+router.get('/addOppendesigner', async (ctx,next)=>{
+  const query = ctx.query;
+  const sql = `INSERT INTO oppendesigner (dynamo_edition,opp_edition,opp_file_add) VALUES ('default','default','default')`
+  await sqlServer.query(sql).then((value)=>{
+    ctx.body = {
+      code: 2000,
+      message: 'success',
+      data:value.sqlResult.insertId
+    };
+  }).catch((err)=>{
+    ctx.body = {
+      code: 5001,
+      message: "server error",
+      data:err
+    };
+  })
+})
+
+
+
 router.get('/changeMacAddress', async (ctx,next)=>{
   const query = ctx.query;
   const sql = `UPDATE user SET mac_add='${query.mac_add}' WHERE user_id = ${query.userId}`;
